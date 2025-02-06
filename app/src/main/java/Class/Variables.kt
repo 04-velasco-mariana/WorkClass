@@ -20,6 +20,7 @@ fun main(){
     val names = arrayOf("Erick", "Sofia", "Javier", "Veronica")
 
     println(age)
+    println("prueba push")
     println("Welcome $name, to your first Kotlin project")
     println (add())
     println (product (5,8))

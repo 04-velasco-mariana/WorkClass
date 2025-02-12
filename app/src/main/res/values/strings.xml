@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WorkClass</string>
+    <string name="sample_text">Hello World From String.xml</string>
 </resources>

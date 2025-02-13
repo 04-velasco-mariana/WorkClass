@@ -5,6 +5,7 @@ import android.provider.CalendarContract.Colors
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -25,7 +26,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -33,16 +36,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.workclass.ui.screens.MainMenuScreen
 import com.example.workclass.ui.theme.WorkClassTheme
+import java.security.AccessController
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // enableEdgeToEdge()
         setContent {
-            WorkClassTheme {
 
-                Column() {
+            WorkClassTheme {
+                ComposeMultiScreenApp()
+
+               /* Column() {
                     Column() {
                         TextComposabe("Roberto")
                         TextComposabe()
@@ -59,10 +70,14 @@ class MainActivity : ComponentActivity() {
                         ModifierExample2()
                         ModifierExample4()
                         CustomText()
+                        picture()
                     }
                 }
 
+                */
             }
+
+
         }
     }
 
@@ -164,6 +179,42 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    @Preview(showBackground = true)
+    @Composable
+    fun picture (){
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Black)
+                .height(300.dp)
+        ){
+            Image(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                painter = painterResource(R.drawable.images),
+                contentDescription = "Imagen de un changuito",
+                contentScale = ContentScale.Crop
+
+            )
+
+        }
+    }
 
 } //close class
+
+@Composable
+fun ComposeMultiScreenApp(){
+    val navController = rememberNavController()
+    SetupNavGraph(navController= navController)
+
+}
+@Composable
+fun SetupNavGraph(navController: NavHostController){
+    NavHost(navController = navController, startDestination= "main_menu"){
+        composable("main_menu"){ MainMenuScreen(navController)}
+    }
+
+}
+
+
 

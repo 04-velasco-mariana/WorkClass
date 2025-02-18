@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">WorkClass</string>
+    <string name="sample_text">Hello World From String.xml</string>
+    <string name="Ipsum_text"> Android es un sistema operativo móvil de código abierto desarrollado por Google, diseñado principalmente para dispositivos móviles como teléfonos inteligentes y tabletasString.xml</string>
 </resources>

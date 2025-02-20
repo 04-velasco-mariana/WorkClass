@@ -11,11 +11,17 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.border
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
+import androidx.compose.material3.FloatingActionButtonElevation
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.OutlinedButton
@@ -37,6 +43,7 @@ import com.example.workclass.R
 
 @Composable
 fun StarbucksInterface(navController: NavController) {
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -47,6 +54,10 @@ fun StarbucksInterface(navController: NavController) {
         PromotionsList()
         //Spacer(modifier = Modifier.weight(1f))
         //BottomNavBar()
+
+        FloatingScanButton(navController)
+
+
     }
 }
 
@@ -62,28 +73,26 @@ fun TopBar() { //barra de navegacion principal
         Text("Mariana Lizeth", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.Black)
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Row {
-                Icon(
-                    Icons.Default.AccountBox,
-                    contentDescription = "Profile Icon",
-                    modifier = Modifier.
-                    size(30.dp)) //icono de Profile Icon
-                Spacer(
-                    modifier = Modifier
-                        .width(10.dp)) //Spacer se agrego para generar un espacio horizontal entre los iconos
-                Icon(
-                    Icons.Default.Email,
-                    contentDescription = "Messages Icon",
-                    modifier = Modifier.
-                    size(30.dp)) //Icono de Email y mensajeria
+
+            Row (
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Icon(Icons.Default.AccountBox, contentDescription = "Profile Icon", modifier = Modifier.size(30.dp))
+                Spacer(modifier = Modifier.width(5.dp))
+                Text("Profile", fontSize = 16.sp, color = Color.Black)
             }
-            Icon(
-                Icons.Default.Settings,
-                contentDescription = "Settings Icon",
-                modifier = Modifier.
-                size(30.dp)) // Icono de configuracion
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Icon(Icons.Default.Email, contentDescription = "Email Icon", modifier = Modifier.size(30.dp))
+                Spacer(modifier = Modifier.width(10.dp))
+                Icon(Icons.Default.Settings, contentDescription = "Settings Icon", modifier = Modifier.size(30.dp))
+
+
+            }
         }
     }
 }
@@ -95,29 +104,37 @@ fun RewardSection() { //Seccion de la parte de Recompensas
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                imageVector = Icons.Default.Star,
-                contentDescription = "Star Icon",
-                tint = colorResource(id = R.color.sacramento),
-                modifier = Modifier.size(30.dp)
-            )
+            Text("34 Star", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.Black)
+
             Spacer(
                 modifier = Modifier
-                    .width(5.dp)
-            )
-            Text("34 Star", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.Black)
-        }
+                    .size(5.dp))
+            Icon(
+                imageVector = Icons.Default.Star,
+                contentDescription = "Star icon",
+                tint = colorResource(id = R.color.sacramento),
+                modifier = Modifier
+                    .size(30.dp)
+            ) }
+
         Spacer(modifier = Modifier.height(8.dp))
         LinearProgressIndicator( //Este es un elemento que agregué para poder visualizar la linea de progresion de las estrellas de recompensa
             progress = 0.2f, //representa el porcentaje de la linea
-            modifier = Modifier.fillMaxWidth().height(8.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(8.dp),
+            color = colorResource(id = R.color.sacramento), //para cambiar el color de la linea
         )
+        OutlinedButton(
+            onClick = { /* no tiene acciones el boton */ },
+            shape = RoundedCornerShape(20.dp)
+        ){
+            Text("Rewards details",
+                color = Color.Black)
+        }
 
-                Spacer(
-                    modifier = Modifier
-                        .width(5.dp))
-
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier
+            .height(10.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.End
@@ -148,6 +165,7 @@ fun PromotionsList() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .background(Color.White)
     ) {
         PromotionCard( // esta funcion se manda a llamar en la lista de promociones y no en StarbucksInterface
             "Un nuevo color para tu semana esta listo para sorprenderte",
@@ -169,8 +187,12 @@ fun PromotionCard(title : String , description: String, imageRes: Int){ //se dec
 Card (
     modifier = Modifier
         .padding(10.dp)
+        .background(Color.White)
         .fillMaxWidth(),
+
     shape = RoundedCornerShape(10.dp)
+
+
 
 ) {
     Column(
@@ -178,7 +200,7 @@ Card (
             .padding(10.dp)
     ) {
         Image(
-            painter = painterResource(id = imageRes),
+            painter = painterResource(id = imageRes), //utilize un id en el recurso de la imagen para poder mandarla a llamar en la funcion de Promotional Card y ser utilizada en List
             contentDescription = "Promotional Images",
             modifier = Modifier
                 .fillMaxWidth()
@@ -196,18 +218,57 @@ Card (
             modifier = Modifier
                 .height(10.dp)
         )
-
-        OutlinedButton(
-            onClick = { /* no tiene acciones el boton */ },
-            shape = RoundedCornerShape(20.dp)
+        Button(
+            onClick = {/* no tiene acciones el boton*/},
+            shape = RoundedCornerShape(20.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.sacramento))
         ) {
-            Text("Details ",
-                color = Color.Black)
-
+            Text("Details", color = Color.White)
         }
     }
 }
 }
+
+@Composable
+fun FloatingScanButton(navController: NavController){
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = 90.dp, end=16.dp),
+        contentAlignment = Alignment.BottomCenter
+    ){
+        FloatingActionButton(
+            onClick = {navController.navigate("scan_screen")},
+            containerColor = colorResource(id = R.color.sacramento),
+            shape=  CircleShape,
+            elevation = FloatingActionButtonDefaults.elevation(8.dp),
+            modifier = Modifier
+                .padding(bottom = 16.dp)
+
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+            ){
+                Text("Scan", color = Color.White, fontSize = 16.sp)
+
+            }
+
+        }
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

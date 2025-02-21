@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontVariation.weight
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,23 +44,30 @@ import com.example.workclass.R
 
 @Composable
 fun StarbucksInterface(navController: NavController) {
-
-    Column(
-        modifier = Modifier
+    Box (modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState()) //permite hacer el scroll
-    ) {
-        TopBar()
-        RewardSection()
-        PromotionsList()
-        //Spacer(modifier = Modifier.weight(1f))
-        //BottomNavBar()
-
-        FloatingScanButton(navController)
-
+        .background(Color.White)) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState()) //permite hacer el scroll
+                .padding(bottom = 56.dp)
+        ) {
+            TopBar()
+            RewardSection()
+            PromotionsList()
+            FloatingScanButton(navController)
+        }
+        Box (modifier = Modifier.fillMaxWidth()
+            .align(Alignment.BottomCenter))
+        {
+           BottomNavBar()
+        }
 
     }
-}
+    }
+
+
 
 
 
@@ -69,8 +77,8 @@ fun TopBar() { //barra de navegacion principal
         modifier = Modifier
             .fillMaxWidth() //ocupe la pantalla completa
     ) {
-        Text("Good morning,", fontSize = 18.sp, color = Color.Black)
-        Text("Mariana Lizeth", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.Black)
+        Text("Good morning,", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.Black)
+        Text("Mariana Lizeth", fontSize = 25.sp, fontWeight = FontWeight.Bold, color = Color.Black)
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -198,6 +206,7 @@ Card (
     Column(
         modifier = Modifier
             .padding(10.dp)
+            .background(Color.White)
     ) {
         Image(
             painter = painterResource(id = imageRes), //utilize un id en el recurso de la imagen para poder mandarla a llamar en la funcion de Promotional Card y ser utilizada en List
@@ -234,7 +243,7 @@ fun FloatingScanButton(navController: NavController){
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(bottom = 90.dp, end=16.dp),
+            .padding(bottom = 90.dp, end = 16.dp),
         contentAlignment = Alignment.BottomCenter
     ){
         FloatingActionButton(
@@ -259,6 +268,23 @@ fun FloatingScanButton(navController: NavController){
 
     }
 }
+
+@Composable
+fun BottomNavBar(){
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.White)
+
+    )
+    Image(
+        painter = painterResource(R.drawable.buttons_starbucks),
+        contentDescription = "Bottons",
+        modifier = Modifier
+    )
+}
+
+
 
 
 

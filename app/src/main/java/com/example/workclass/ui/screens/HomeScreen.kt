@@ -38,6 +38,7 @@ fun HomeScreen (navController: NavHostController){
             .padding(0.dp, 60.dp, 0.dp, 60.dp)
             .fillMaxSize()
 
+
     ){
         ContentOne()
         ContentTwo()

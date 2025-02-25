@@ -43,7 +43,7 @@ import com.example.workclass.R
 
 
 @Composable
-fun StarbucksInterface(navController: NavController) {
+fun StarbucksInterface(navController: NavController) { //funcion principal de la UI
     Box (modifier = Modifier
             .fillMaxSize()
         .background(Color.White)) {
@@ -53,6 +53,7 @@ fun StarbucksInterface(navController: NavController) {
                 .verticalScroll(rememberScrollState()) //permite hacer el scroll
                 .padding(bottom = 56.dp)
         ) {
+            //mando a llamar cada una de las funciones
             TopBar()
             RewardSection()
             PromotionsList()
@@ -61,14 +62,11 @@ fun StarbucksInterface(navController: NavController) {
         Box (modifier = Modifier.fillMaxWidth()
             .align(Alignment.BottomCenter))
         {
-           BottomNavBar()
+           BottomNavBar() //barra de navegacion
         }
 
     }
     }
-
-
-
 
 
 @Composable
@@ -89,7 +87,7 @@ fun TopBar() { //barra de navegacion principal
                 verticalAlignment = Alignment.CenterVertically
             ){
                 Icon(Icons.Default.AccountBox, contentDescription = "Profile Icon", modifier = Modifier.size(30.dp))
-                Spacer(modifier = Modifier.width(5.dp))
+                Spacer(modifier = Modifier.width(5.dp)) //crea un espacio horizontal
                 Text("Profile", fontSize = 16.sp, color = Color.Black)
             }
             Row(
@@ -125,13 +123,13 @@ fun RewardSection() { //Seccion de la parte de Recompensas
                     .size(30.dp)
             ) }
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(8.dp)) //este es el elemento que agregue no visto en clase
         LinearProgressIndicator( //Este es un elemento que agregué para poder visualizar la linea de progresion de las estrellas de recompensa
             progress = 0.2f, //representa el porcentaje de la linea
             modifier = Modifier
                 .fillMaxWidth()
                 .height(8.dp),
-            color = colorResource(id = R.color.sacramento), //para cambiar el color de la linea
+            color = colorResource(id = R.color.sacramento), //para cambiar el color de la linea agregue este color al archivo xml
         )
         OutlinedButton(
             onClick = { /* no tiene acciones el boton */ },
@@ -145,12 +143,12 @@ fun RewardSection() { //Seccion de la parte de Recompensas
             .height(10.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.End
+            horizontalArrangement = Arrangement.End //alinear el boton
         ) {
             OutlinedButton(
                 onClick = { /* no tiene acciones el boton */ },
-                shape = RoundedCornerShape(20.dp)
-            ) { //use este tipo de boton que solo tiene el margen mas no esta relleno
+                shape = RoundedCornerShape(20.dp) //modificar el contorno del boton
+            ) { //use este tipo de boton que solo tiene el margen mas no esta relleno, este fue uno de los elementos no vistos en clase
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text("Rewards",
                         color = Color.Black)
@@ -169,7 +167,7 @@ fun RewardSection() { //Seccion de la parte de Recompensas
     }
 }
 @Composable
-fun PromotionsList() {
+fun PromotionsList() { //funcion con las imagenes y el texto de promocion
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -199,9 +197,6 @@ Card (
         .fillMaxWidth(),
 
     shape = RoundedCornerShape(10.dp)
-
-
-
 ) {
     Column(
         modifier = Modifier
@@ -239,38 +234,31 @@ Card (
 }
 
 @Composable
-fun FloatingScanButton(navController: NavController){
+fun FloatingScanButton(navController: NavController){ //boton de Scan
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(bottom = 90.dp, end = 16.dp),
         contentAlignment = Alignment.BottomCenter
     ){
-        FloatingActionButton(
+        Button(
             onClick = {navController.navigate("scan_screen")},
-            containerColor = colorResource(id = R.color.sacramento),
-            shape=  CircleShape,
-            elevation = FloatingActionButtonDefaults.elevation(8.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = colorResource(id=R.color.sacramento)),
+            shape=  RoundedCornerShape(50),
             modifier = Modifier
                 .padding(bottom = 16.dp)
 
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-            ){
                 Text("Scan", color = Color.White, fontSize = 16.sp)
-
             }
 
         }
 
     }
-}
+
 
 @Composable
-fun BottomNavBar(){
+fun BottomNavBar(){ //barra de navegacion 
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -278,7 +266,7 @@ fun BottomNavBar(){
 
     )
     Image(
-        painter = painterResource(R.drawable.buttons_starbucks),
+        painter = painterResource(R.drawable.buttons_starbucks), //opte por poner un ss de la imagen debido a la dificultad que tuve para poner cada icono porque no estaban en la libreria
         contentDescription = "Bottons",
         modifier = Modifier
     )

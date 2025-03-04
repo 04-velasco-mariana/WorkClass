@@ -1,5 +1,6 @@
 package com.example.workclass.ui.screens
 
+import android.app.AlertDialog
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,8 +13,13 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.Badge
+import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
@@ -30,6 +36,8 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SmallFloatingActionButton
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -37,15 +45,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role.Companion.Switch
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
 import java.util.logging.Filter
 
 
@@ -56,7 +67,10 @@ fun AndroidComponents (navController: NavHostController){
     //Progress()
    // Chips()
     //Sliders()
-    Switches()
+   // Switches()
+    //Badges()
+    //SnackBars()
+    AlertDialogs()
 }
 
 
@@ -272,3 +286,108 @@ fun Switches() {
 }
 
 
+@Composable
+fun Badges() { //iconos de mensajes sin leer o notificaciones
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceEvenly
+    )
+    {
+        var itemCount by remember { mutableStateOf(0) }
+        BadgedBox(
+            badge = {
+                if (itemCount > 0){
+                    Badge(
+                        containerColor = Color.Red,
+                        contentColor = Color.White
+                    ){
+                        Text(itemCount.toString())
+                    }
+                }
+            }
+        ) {
+            Icon(
+                imageVector = Icons.Filled.ShoppingCart,
+                contentDescription = "Shopping cart icon"
+            )
+        }
+        Button(
+            onClick = {itemCount++}
+        ) {
+            Text("Add item")
+        }
+    }
+}
+
+@Composable
+fun SnackBars() { //Barra de notificacion cuando hacemos una accion
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceEvenly
+    ) {
+        val snackState = remember { SnackbarHostState() } //guarda el estado de si se esta mostrando o no
+        val snackScope = rememberCoroutineScope() //controla cuanto tiempo se queda en pantalla
+
+        SnackbarHost(hostState = snackState)
+
+        fun launchSnackBar (){
+            snackScope.launch { snackState.showSnackbar("The message has been sent") }
+        }
+
+        Button(::launchSnackBar) {
+            Text("Send message")
+        }
+    }
+}
+
+@Composable
+fun AlertDialogs() { //Lanza un mensaje y al mismo tiempo nos pide una confirmacion y no desaparece  hasta elegir la accion
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceEvenly
+    ) {
+        var showAlertDialog by remember { mutableStateOf(false) }
+        var selectedOption by remember { mutableStateOf("") }
+
+        if (showAlertDialog){
+           AlertDialog(
+               icon= { Icon (Icons.Filled.Warning, contentDescription = "Warning Icon")},
+               title = {Text ("Confirm Deletion")},
+                   text = {Text("Are you sure you want to delete this file?")},
+                   onDismissRequest ={},
+                   confirmButton = {
+                       TextButton(
+                           onClick = {
+                               selectedOption = "Confirmed"
+                               showAlertDialog = false
+                           }
+                       ) {
+                           Text("Yes")
+                       }
+                   },
+                           dismissButton = {
+                       TextButton(
+                           onClick = {
+                               selectedOption = "Canceled"
+                               showAlertDialog = false
+                           }
+                       ) {
+                           Text("No")
+                       }
+                   }
+           )
+        }
+
+        Button (onClick = { showAlertDialog=true}) {
+            Text("Delete file")
+        }
+        Text (selectedOption)
+
+    }
+}

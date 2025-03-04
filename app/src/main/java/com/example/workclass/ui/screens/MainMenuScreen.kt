@@ -72,6 +72,14 @@ fun MainMenuScreen (navController: NavHostController){
 
 
 
+        Button(
+            onClick = { navController.navigate("interface")}
+        ) {
+            Text("Button to Starbucks Interface ")
+        }
+        //
+
+
 
 
     }

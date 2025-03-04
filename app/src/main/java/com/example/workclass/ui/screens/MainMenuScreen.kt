@@ -42,7 +42,7 @@ fun MainMenuScreen (navController: NavHostController){
             .fillMaxSize()
 
     ){
-        Text("Welcome to Main menu")
+        Text(" Welcome to Main menu")
         Button(
             onClick = { navController.navigate("home_screen")}
         ) {
@@ -54,6 +54,23 @@ fun MainMenuScreen (navController: NavHostController){
         ) {
             Text("Button to Test Screen")
         }
+        Button(
+            onClick = { navController.navigate("interface")}
+        ) {
+            Text("Button to Starbucks Screen")
+        }
+        Button(
+            onClick = { navController.navigate("android_components")}
+        ) {
+            Text("Button to Andriod Components")
+        }
+
+
+
+
+
+
+
 
         Button(
             onClick = { navController.navigate("interface")}

@@ -239,14 +239,14 @@ fun FloatingScanButton(navController: NavController){ //boton de Scan
         modifier = Modifier
             .fillMaxSize()
             .padding(bottom = 90.dp, end = 16.dp),
-        contentAlignment = Alignment.BottomCenter
+        contentAlignment = Alignment.BottomEnd
     ){
         Button(
             onClick = {navController.navigate("scan_screen")},
             colors = ButtonDefaults.buttonColors(containerColor = colorResource(id=R.color.sacramento)),
             shape=  RoundedCornerShape(50),
             modifier = Modifier
-                .padding(bottom = 16.dp)
+                .padding(bottom = 16.dp, end = 16.dp)
 
         ) {
                 Text("Scan", color = Color.White, fontSize = 16.sp)

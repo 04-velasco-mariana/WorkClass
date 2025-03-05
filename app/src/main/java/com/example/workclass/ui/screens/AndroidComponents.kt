@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
@@ -12,6 +13,7 @@ import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Warning
@@ -23,16 +25,21 @@ import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.InputChip
 import androidx.compose.material3.InputChipDefaults
 import androidx.compose.material3.LargeFloatingActionButton
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.ModalDrawerSheet
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SmallFloatingActionButton
@@ -41,11 +48,13 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.tooling.preview.Preview
@@ -70,7 +79,181 @@ fun AndroidComponents (navController: NavHostController){
    // Switches()
     //Badges()
     //SnackBars()
-    AlertDialogs()
+    //AlertDialogs()
+    var option by rememberSaveable { mutableStateOf("buttons") } //guardar la opcion que elige
+    var drawerState = rememberDrawerState(initialValue =DrawerValue.Closed )
+    var scope = rememberCoroutineScope()
+
+    ModalNavigationDrawer(
+        drawerState = drawerState, //cual es el estado del menu abierto o cerrado
+        drawerContent = {
+            ModalDrawerSheet {
+                Text("Menú", modifier = Modifier.padding(16.dp))
+                HorizontalDivider() //linea horizontal que divide
+                NavigationDrawerItem(
+                    icon = { Icon (
+                        Icons.Filled.Add, contentDescription = "Icon")},
+                    label = {Text("Buttons")},
+                    selected = false,
+                    onClick = {
+                        option = "first"
+                        scope.launch { //accede a la propiedad del estado de drawer y lo cierra
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                NavigationDrawerItem(
+                    icon = { Icon (
+                        Icons.Filled.Add, contentDescription = "Icon")},
+                    label = {Text("Floating Buttons")},
+                    selected = false,
+                    onClick = {
+                        option = "second"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                NavigationDrawerItem(
+                    icon = { Icon (
+                        Icons.Filled.Add, contentDescription = "Icon")},
+                    label = {Text("Progress")},
+                    selected = false,
+                    onClick = {
+                        option = "third"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                NavigationDrawerItem(
+                    icon = { Icon (
+                        Icons.Filled.Add, contentDescription = "Icon")},
+                    label = {Text("Chips")},
+                    selected = false,
+                    onClick = {
+                        option = "fourth"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                NavigationDrawerItem(
+                    icon = { Icon (
+                        Icons.Filled.Add, contentDescription = "Icon")},
+                    label = {Text("Sliders")},
+                    selected = false,
+                    onClick = {
+                        option = "five"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                NavigationDrawerItem(
+                    icon = { Icon (
+                        Icons.Filled.Add, contentDescription = "Icon")},
+                    label = {Text("Switches")},
+                    selected = false,
+                    onClick = {
+                        option = "sixth"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                NavigationDrawerItem(
+                    icon = { Icon (
+                        Icons.Filled.Add, contentDescription = "Icon")},
+                    label = {Text("Badges")},
+                    selected = false,
+                    onClick = {
+                        option = "seven"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                NavigationDrawerItem(
+                    icon = { Icon (
+                        Icons.Filled.Add, contentDescription = "Icon")},
+                    label = {Text("SnackBars")},
+                    selected = false,
+                    onClick = {
+                        option = "eight"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+                NavigationDrawerItem(
+                    icon = { Icon (
+                        Icons.Filled.Add, contentDescription = "Icon")},
+                    label = {Text("Alert Dialogs")},
+                    selected = false,
+                    onClick = {
+                        option = "nine"
+                        scope.launch {
+                            drawerState.apply {
+                                close()
+                            }
+                        }
+                    }
+                )
+
+            }
+        }
+    ) {
+        Column{
+            when(option){
+                "first" -> {
+                    Buttons()
+                }
+                "second" -> {
+                    FloatingButtons()
+                }
+                "third" -> {
+                    Progress()
+                }
+                "fourth" ->{
+                    Chips()
+                }
+                "five" -> {
+                    Sliders()
+                }
+                "sixth" -> {
+                    Switches()
+                }
+                "seven" -> {
+                    Badges()
+                }
+                "eight" -> {
+                    SnackBars()
+                }
+                "nine" -> {
+                    AlertDialogs()
+                }
+            }
+        }
+
+    }
+
 }
 
 

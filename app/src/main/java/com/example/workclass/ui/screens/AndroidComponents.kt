@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Add
@@ -65,161 +67,61 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role.Companion.Switch
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.workclass.data.model.MenuModel
 import kotlinx.coroutines.launch
 import java.util.logging.Filter
 
 
 @Composable
 fun AndroidComponents (navController: NavHostController){
-   // Buttons()
-    //FloatingButtons()
-    //Progress()
-   // Chips()
-    //Sliders()
-   // Switches()
-    //Badges()
-    //SnackBars()
-    //AlertDialogs()
+
+    val menuOptions= arrayOf(
+        MenuModel(1,"Buttons", "buttons", Icons.Filled.Add), //arreglo de un elemento basado en un modelo
+        MenuModel(2,"Floating Buttons", "second", Icons.Filled.Add),
+        MenuModel(3,"Progress", "third", Icons.Filled.Add),
+        MenuModel(4,"Chips", "fourth", Icons.Filled.Add),
+        MenuModel(5,"Sliders", "five", Icons.Filled.Add),
+        MenuModel(6,"Switches", "sixth", Icons.Filled.Add),
+        MenuModel(7,"Badges", "seven", Icons.Filled.Add),
+        MenuModel(8,"SnackBars", "eight", Icons.Filled.Add),
+        MenuModel(9,"AlertDialog", "nine", Icons.Filled.Add)
+
+
+    )
+
     var option by rememberSaveable { mutableStateOf("buttons") } //guardar la opcion que elige
     var drawerState = rememberDrawerState(initialValue =DrawerValue.Closed )
     var scope = rememberCoroutineScope()
 
-    ModalNavigationDrawer(
+    ModalNavigationDrawer (
         drawerState = drawerState, //cual es el estado del menu abierto o cerrado
         drawerContent = {
             ModalDrawerSheet {
                 Text("Menú", modifier = Modifier.padding(16.dp))
                 HorizontalDivider() //linea horizontal que divide
-                NavigationDrawerItem(
-                    icon = { Icon (
-                        Icons.Filled.Add, contentDescription = "Icon")},
-                    label = {Text("Buttons")},
-                    selected = false,
-                    onClick = {
-                        option = "first"
-                        scope.launch { //accede a la propiedad del estado de drawer y lo cierra
-                            drawerState.apply {
-                                close()
+                LazyColumn {
+                    items(menuOptions) { item ->
+                    NavigationDrawerItem(
+                        icon = {
+                            Icon(item.icon, contentDescription = "Icon")
+                        },
+                        label = { Text(item.title) },
+                        selected = false,
+                        onClick = {
+                            option = item.option
+                            scope.launch { //accede a la propiedad del estado de drawer y lo cierra
+                                drawerState.apply {
+                                    close()
+                                }
                             }
                         }
-                    }
-                )
-                NavigationDrawerItem(
-                    icon = { Icon (
-                        Icons.Filled.Add, contentDescription = "Icon")},
-                    label = {Text("Floating Buttons")},
-                    selected = false,
-                    onClick = {
-                        option = "second"
-                        scope.launch {
-                            drawerState.apply {
-                                close()
-                            }
-                        }
-                    }
-                )
-                NavigationDrawerItem(
-                    icon = { Icon (
-                        Icons.Filled.Add, contentDescription = "Icon")},
-                    label = {Text("Progress")},
-                    selected = false,
-                    onClick = {
-                        option = "third"
-                        scope.launch {
-                            drawerState.apply {
-                                close()
-                            }
-                        }
-                    }
-                )
-                NavigationDrawerItem(
-                    icon = { Icon (
-                        Icons.Filled.Add, contentDescription = "Icon")},
-                    label = {Text("Chips")},
-                    selected = false,
-                    onClick = {
-                        option = "fourth"
-                        scope.launch {
-                            drawerState.apply {
-                                close()
-                            }
-                        }
-                    }
-                )
-                NavigationDrawerItem(
-                    icon = { Icon (
-                        Icons.Filled.Add, contentDescription = "Icon")},
-                    label = {Text("Sliders")},
-                    selected = false,
-                    onClick = {
-                        option = "five"
-                        scope.launch {
-                            drawerState.apply {
-                                close()
-                            }
-                        }
-                    }
-                )
-                NavigationDrawerItem(
-                    icon = { Icon (
-                        Icons.Filled.Add, contentDescription = "Icon")},
-                    label = {Text("Switches")},
-                    selected = false,
-                    onClick = {
-                        option = "sixth"
-                        scope.launch {
-                            drawerState.apply {
-                                close()
-                            }
-                        }
-                    }
-                )
-                NavigationDrawerItem(
-                    icon = { Icon (
-                        Icons.Filled.Add, contentDescription = "Icon")},
-                    label = {Text("Badges")},
-                    selected = false,
-                    onClick = {
-                        option = "seven"
-                        scope.launch {
-                            drawerState.apply {
-                                close()
-                            }
-                        }
-                    }
-                )
-                NavigationDrawerItem(
-                    icon = { Icon (
-                        Icons.Filled.Add, contentDescription = "Icon")},
-                    label = {Text("SnackBars")},
-                    selected = false,
-                    onClick = {
-                        option = "eight"
-                        scope.launch {
-                            drawerState.apply {
-                                close()
-                            }
-                        }
-                    }
-                )
-                NavigationDrawerItem(
-                    icon = { Icon (
-                        Icons.Filled.Add, contentDescription = "Icon")},
-                    label = {Text("Alert Dialogs")},
-                    selected = false,
-                    onClick = {
-                        option = "nine"
-                        scope.launch {
-                            drawerState.apply {
-                                close()
-                            }
-                        }
-                    }
-                )
-
+                    )
+                }
             }
         }
-    ) {
+}
+) {
+
         Column{
             when(option){
                 "first" -> {
@@ -253,7 +155,6 @@ fun AndroidComponents (navController: NavHostController){
         }
 
     }
-
 }
 
 

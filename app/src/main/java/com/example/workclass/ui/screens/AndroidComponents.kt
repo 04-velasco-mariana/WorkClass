@@ -3,12 +3,17 @@ package com.example.workclass.ui.screens
 import android.app.AlertDialog
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
@@ -59,6 +64,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -79,10 +85,14 @@ import androidx.compose.ui.unit.dp
 import com.example.workclass.R
 import com.example.workclass.data.model.MenuModel
 import com.example.workclass.data.model.PostCardModel
+import com.example.workclass.ui.components.PostCardCompactComponent
 import com.example.workclass.ui.components.PostCardComponent
 import kotlinx.coroutines.launch
 import org.jetbrains.annotations.ApiStatus
 import java.util.logging.Filter
+
+
+
 
 
 @Composable
@@ -515,22 +525,40 @@ fun Bars(){
                     Icon(imageVector = Icons.Filled.Settings, contentDescription = "Icon 2" )
                 }
             }
-        )
+        ) /*
         val arrayPost= arrayOf(
             PostCardModel(1,"Title 1", "Text 1", R.drawable.images),
             PostCardModel(2,"Title 2", "Text 2", R.drawable.images),
-            PostCardModel(3,"Title 3", "Text 3", R.drawable.images)
+            PostCardModel(3,"Title 3", "Text 3", R.drawable.images),
+            PostCardModel(4,"Title 4", "Text 4", R.drawable.images),
+            PostCardModel(5,"Title 5", "Text 5", R.drawable.images),
+            PostCardModel(6,"Title 6", "Text 6", R.drawable.images),
+            PostCardModel(7,"Title 7", "Text 7", R.drawable.images),
+            PostCardModel(8,"Title 8", "Text 8", R.drawable.images),
+            PostCardModel(9,"Title 9", "Text 9", R.drawable.images)
+
         )
-        LazyColumn( //como experimento se puede poner un LazyRow para que se haga scroll de manera horizontal
+        LazyHorizontalGrid(
+            rows = GridCells.Adaptive(minSize = 100.dp),
             modifier = Modifier
                 .fillMaxSize()
                 .weight(1f)
         ){
-            items(arrayPost){
-                item ->
-                PostCardComponent(item.id,item.title,item.text,item.image) //parametros agregados en el PostComponent
+            items(arrayPost){ item ->
+                PostCardCompactComponent(item.id,item.title,item.text,item.image) //parametros agregados en el PostComponent
             }
         }
+        */
+        Column (
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxSize()
+        ){
+
+        }
+
+
+
         BottomAppBar (
             containerColor = Color.Gray,
             contentColor = Color.Black
@@ -573,4 +601,27 @@ fun Bars(){
         }
 
     }
+}
+
+@Composable
+fun Adaptive (){
+    var windowSize = currentWindowAdaptiveInfo().windowSizeClass
+    var height = currentWindowAdaptiveInfo().windowSizeClass.windowHeightSizeClass
+    var width = currentWindowAdaptiveInfo().windowSizeClass.windowWidthSizeClass
+    //Compact width < 600 dp Phone Portrait (parado)
+    //Medium width >= 600 dp < 840 dp Tablet Portrait (parada)
+    //Expanded width >= 840 dp Tablet Landscape (acostada)
+
+    //Compact height < 480 dp Phone Landscape (acostado)
+    //Medium height >= 480 dp < 900 dp Tablet Landscape o Phone Portrait (acostado)
+    //Expanded height >= 900 dp Tablet Portrait (parada)
+
+
+    Column {
+        Text(windowSize.toString())
+        Text(height.toString())
+        Text(width.toString())
+
+    }
+
 }

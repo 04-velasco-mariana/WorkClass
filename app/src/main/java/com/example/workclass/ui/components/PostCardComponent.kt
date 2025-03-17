@@ -1,20 +1,12 @@
-package com.example.workclass.ui.screens
+package com.example.workclass.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,31 +16,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import com.example.workclass.R
 
 @Composable
-fun HomeScreen (navController: NavHostController){
-    topbar()
-    Column (
-        modifier = Modifier
-            .padding(0.dp, 60.dp, 0.dp, 60.dp)
-            .fillMaxSize()
-
-
-    ){
-        ContentOne()
-        ContentTwo()
-
-    }
-
-}
-@Preview(showBackground = true)
-@Composable
-fun ContentOne(){
+fun PostCardComponent(id: Int, title: String, text:String, image: Int){
     Card(
         modifier = Modifier
             .background(Color.LightGray)
@@ -56,25 +29,26 @@ fun ContentOne(){
             .padding(5.dp)
     ) {
         Text(
-            text = "This is a title",
+            text = title,
             fontSize = 12.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
-            .padding(10.dp)
+                .padding(10.dp)
 
 
         )
         Image(
             modifier = Modifier
                 .fillMaxWidth(),
-            painter = painterResource(R.drawable.images),
+            painter = painterResource(image),
             contentDescription = "Imagen de un changuito",
             contentScale = ContentScale.Crop
 
         )
 
         Text(
-            stringResource(R.string.Ipsum_text),
+           // stringResource(R.string.Ipsum_text),
+            text=text,
             textAlign = TextAlign.Justify,
             lineHeight = 14.sp,
             fontSize = 10.sp,
@@ -84,9 +58,8 @@ fun ContentOne(){
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun ContentTwo(){
+fun PostCardCompactComponent(id: Int, title: String, text:String, image: Int){
     Card (
         modifier = Modifier
             .background(Color.LightGray)
@@ -97,8 +70,8 @@ fun ContentTwo(){
 
             Image(
                 modifier = Modifier
-                        .fillMaxWidth(),
-                painter = painterResource(R.drawable.images),
+                    .fillMaxWidth(),
+                painter = painterResource(image),
                 contentDescription = "Imagen de un changuito",
                 contentScale = ContentScale.Crop
 
@@ -107,14 +80,14 @@ fun ContentTwo(){
 
             ){
                 Text(
-                    text = "This is a Title",
+                    text = title,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
                         .padding(5.dp)
                 )
                 Text(
-                    stringResource(R.string.Ipsum_text),
+                    text= text,
                     textAlign = TextAlign.Justify,
                     lineHeight = 14.sp,
                     fontSize = 10.sp,
@@ -124,33 +97,5 @@ fun ContentTwo(){
                 )
             }
         }
-    }
-}
-
-
-
-
-@Preview(showBackground = true)
-@Composable
-fun topbar(){
-    Row (
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(60.dp)
-            .background(Color.Black)
-            .padding(10.dp)
-    ){
-        Icon(
-            Icons.Filled.Menu,
-            contentDescription = "Menu Icon",
-            tint = Color.White,
-            modifier = Modifier
-            .size(50.dp)
-        )
-        Text(
-            stringResource(R.string.app_name),
-            color = Color.White,
-            fontSize = 30.sp
-        )
     }
 }

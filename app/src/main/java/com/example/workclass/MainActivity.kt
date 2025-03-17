@@ -61,11 +61,7 @@ class MainActivity : ComponentActivity() {
             WorkClassTheme {
                 ComposeMultiScreenApp()
 
-
-
-
             }
-
 
         }
     }

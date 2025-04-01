@@ -78,11 +78,6 @@ fun MainMenuScreen (navController: NavHostController){
             Text("Button to Starbucks Interface ")
         }
         //
-        Button(
-            onClick = { navController.navigate("login_screen")}
-        ) {
-            Text("Button to Login Screen")
-        }
 
 
 

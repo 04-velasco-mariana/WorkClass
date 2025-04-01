@@ -41,6 +41,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.workclass.ui.screens.AccountsScreen
 import com.example.workclass.ui.screens.AndroidComponents
 import com.example.workclass.ui.screens.HomeScreen
 import com.example.workclass.ui.screens.Interface
@@ -196,7 +197,7 @@ fun ComposeMultiScreenApp(){
 }
 @Composable
 fun SetupNavGraph(navController: NavHostController){
-    NavHost(navController = navController, startDestination= "main_menu"){
+    NavHost(navController = navController, startDestination= "accounts_screen"){ //aqui estaba main_menuaccounts_screen
         composable("main_menu"){ MainMenuScreen(navController)}
         composable("home_screen"){ HomeScreen(navController)}
         composable("test_screen"){ TestScreen(navController) }
@@ -204,6 +205,7 @@ fun SetupNavGraph(navController: NavHostController){
         composable("interface"){ StarbucksInterface(navController) }
         composable("android_components"){ AndroidComponents(navController) }
         composable("login_screen"){ LoginScreen(navController) }
+        composable("accounts_screen"){ AccountsScreen(navController) }
     }
 
 }

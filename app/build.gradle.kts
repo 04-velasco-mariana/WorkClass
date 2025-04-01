@@ -54,8 +54,6 @@ dependencies {
     implementation(libs.androidx.navigation.runtime.android)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.camera.core)
-    implementation(libs.androidx.adaptive.android)
-    //implementation(libs.androidx.material3.adaptive.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -63,8 +61,5 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    implementation("com.google.accompanist:accompanist-swiperefresh:0.31.1-alpha")
-    implementation("androidx.compose.material3:material3:1.2.0")
-    implementation("androidx.compose.material:material:1.6.0")
 
 }

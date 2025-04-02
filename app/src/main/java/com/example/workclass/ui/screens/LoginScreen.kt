@@ -41,6 +41,8 @@ import com.example.workclass.data.viewmodel.UserViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 
+
+
 @Composable
 fun LoginScreen(navController: NavController) {
     Column(
@@ -51,12 +53,15 @@ fun LoginScreen(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
-        LoginForm()
+        LoginForm(navController)
     }
 }
 
 @Composable
-fun LoginForm(viewModel: UserViewModel = viewModel()) {
+fun LoginForm(
+    navController: NavController,
+    viewModel: UserViewModel = viewModel()
+) {
     val context = LocalContext.current
 
     Card(
@@ -121,7 +126,7 @@ fun LoginForm(viewModel: UserViewModel = viewModel()) {
                     .fillMaxWidth()
                     .padding(10.dp, 10.dp),
                 shape = CutCornerShape(4.dp),
-                onClick = { TryLogin(user, password, context, viewModel) }
+                onClick = { TryLogin(user, password, context, viewModel, navController) }
             ) {
                 Text("LOG IN")
             }
@@ -148,7 +153,8 @@ fun TryLogin(
     user:String,
     password:String,
     context: Context,
-    viewModel: UserViewModel
+    viewModel: UserViewModel,
+    navController: NavController
 ){
     if (user==""||password=="")
     {
@@ -163,6 +169,8 @@ fun TryLogin(
         viewModel.loginAPI(user_model){jsonResponse ->
             val loginStatus = jsonResponse?.get("login")?.asString
             Log.d("debug","LOGIN STATUS:$loginStatus")
+            if (loginStatus=="success")
+                navController.navigate("accounts_screen")
         }
 
     }

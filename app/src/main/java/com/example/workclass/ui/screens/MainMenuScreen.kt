@@ -73,7 +73,7 @@ fun MainMenuScreen (navController: NavHostController){
         Button(
             onClick = { navController.navigate("accounts_screen")}
         ) {
-            Text("Button to Login Screen ")
+            Text("Button to Accounts Screen ")
         }
 
     }

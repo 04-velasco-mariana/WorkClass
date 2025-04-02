@@ -69,6 +69,20 @@ dependencies {
     //coil AsyncImage
     //implementation("io.coil-kt:coil-compose:2.4.0")
     implementation(libs.coil.compose)
+    // retrofit
+   // implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
+    //implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation(libs.retrofit)
+    //implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation(libs.okhttp)
+    //implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+    implementation(libs.kotlinx.serialization.json)
+    //implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation(libs.converter.gson)
+    //
+    //implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation (libs.androidx.lifecycle.runtime.ktx.v262)
 
 
 

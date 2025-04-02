@@ -122,7 +122,7 @@ import kotlinx.coroutines.Dispatchers
 fun AndroidComponents (navController: NavHostController){
 
     val menuOptions= arrayOf(
-        MenuModel(1,"Buttons", "buttons", Icons.Filled.Add), //arreglo de un elemento basado en un modelo
+        MenuModel(1,"Buttons", "first", Icons.Filled.Add), //arreglo de un elemento basado en un modelo
         MenuModel(2,"Floating Buttons", "second", Icons.Filled.Add),
         MenuModel(3,"Progress", "third", Icons.Filled.Add),
         MenuModel(4,"Chips", "fourth", Icons.Filled.Add),

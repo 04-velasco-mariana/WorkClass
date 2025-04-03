@@ -8,6 +8,6 @@ data class AccountModel(
     var username :String ="",
     var password:String ="",
     var description: String ="",
-    var imageURL: String? = null
+    var imageURL: String = ""
 
 )

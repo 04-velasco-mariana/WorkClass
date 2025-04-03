@@ -171,6 +171,7 @@ fun TryLogin(
             Log.d("debug","LOGIN STATUS:$loginStatus")
             if (loginStatus=="success")
                 navController.navigate("accounts_screen")
+
         }
 
     }

@@ -23,6 +23,17 @@ class AccountViewModel : ViewModel() {
 
             }
         }
+    }
+    fun getAccount(id:Int,onResult: (Response<AccountModel>) -> Unit){
+        viewModelScope.launch {
+            try{
+                val response = api.getAccount(id)
+                Log.d("debug", response.toString())
+                onResult(response)
+            }catch(exception: Exception){
+                Log.d("debug", "API ERROR: $exception")
 
+            }
+        }
     }
 }

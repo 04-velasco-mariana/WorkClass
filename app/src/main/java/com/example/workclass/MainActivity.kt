@@ -47,6 +47,7 @@ import com.example.workclass.ui.screens.HomeScreen
 import com.example.workclass.ui.screens.Interface
 import com.example.workclass.ui.screens.LoginScreen
 import com.example.workclass.ui.screens.MainMenuScreen
+import com.example.workclass.ui.screens.ManageAccountScreen
 import com.example.workclass.ui.screens.StarbucksInterface
 import com.example.workclass.ui.screens.TestScreen
 import com.example.workclass.ui.theme.WorkClassTheme
@@ -197,15 +198,15 @@ fun ComposeMultiScreenApp(){
 }
 @Composable
 fun SetupNavGraph(navController: NavHostController){
-    NavHost(navController = navController, startDestination= "accounts_screen"){ //aqui estaba main_menuaccounts_screen
+    NavHost(navController = navController, startDestination= "accounts_screen"){ //aqui estaba main_menu
         composable("main_menu"){ MainMenuScreen(navController)}
         composable("home_screen"){ HomeScreen(navController)}
         composable("test_screen"){ TestScreen(navController) }
-
         composable("interface"){ StarbucksInterface(navController) }
         composable("android_components"){ AndroidComponents(navController) }
         composable("login_screen"){ LoginScreen(navController) }
         composable("accounts_screen"){ AccountsScreen(navController) }
+        composable("manage_account_screen"){ ManageAccountScreen(navController) }
     }
 
 }

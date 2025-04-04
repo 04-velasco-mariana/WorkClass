@@ -41,7 +41,8 @@ fun AccountsScreen (
 
 
     Column {
-        TopBarComponent("Accounts")
+        TopBarComponent("Accounts",  navController, "accounts_screen")
+
         LaunchedEffect(Unit) {
            viewModel.getAccounts { response ->
                if (response.isSuccessful){

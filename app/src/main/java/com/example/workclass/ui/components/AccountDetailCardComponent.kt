@@ -31,7 +31,7 @@ fun AccountDetailCardComponent(
                 .fillMaxWidth()
                 .height(120.dp)
                 .padding(10.dp),
-            Arrangement.Absolute.SpaceAround,
+            Arrangement.Absolute.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(

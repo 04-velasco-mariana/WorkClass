@@ -3,6 +3,7 @@ package com.example.workclass
 
 import android.os.Bundle
 import android.provider.CalendarContract.Colors
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -41,6 +42,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.workclass.data.database.AppDataBase
+import com.example.workclass.data.database.DataBaseProvider
 import com.example.workclass.ui.screens.AccountsScreen
 import com.example.workclass.ui.screens.AndroidComponents
 import com.example.workclass.ui.screens.HomeScreen
@@ -56,9 +59,18 @@ import com.example.workclass.ui.screens.StarbucksInterface
 import java.security.AccessController
 
 class MainActivity : ComponentActivity() {
+    lateinit var database : AppDataBase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // enableEdgeToEdge()
+
+        try{
+            database = DataBaseProvider.getDatabase(this)
+            Log.d("debug-db","Database loaded successfully")
+        }catch (exception:Exception){
+            Log.d("debug-db","ERROR: $exception")
+        }
+
+        enableEdgeToEdge()
         setContent {
 
             WorkClassTheme {

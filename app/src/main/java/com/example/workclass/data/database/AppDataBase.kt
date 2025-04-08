@@ -7,6 +7,6 @@ import com.example.workclass.data.model.AccountEntity
 
 @Database(entities = [AccountEntity::class], version = 1)
 abstract class AppDataBase: RoomDatabase(){
-    abstract fun acccountDao(): AccountDao
+    abstract fun accountDao(): AccountDao
 
 }

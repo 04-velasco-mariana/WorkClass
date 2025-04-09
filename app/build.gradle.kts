@@ -90,6 +90,8 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     implementation("androidx.room:room-ktx:$room_version") // opcional pero recomendado
     ksp("androidx.room:room-compiler:$room_version")
+    //
+    implementation("androidx.compose.material:material-icons-extended")
 
 
 

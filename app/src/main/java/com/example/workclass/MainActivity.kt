@@ -46,6 +46,8 @@ import com.example.workclass.data.database.AppDataBase
 import com.example.workclass.data.database.DataBaseProvider
 import com.example.workclass.ui.screens.AccountsScreen
 import com.example.workclass.ui.screens.AndroidComponents
+import com.example.workclass.ui.screens.FavoriteAccountsScreen
+import com.example.workclass.ui.screens.FavoriteAccountsScreen
 import com.example.workclass.ui.screens.HomeScreen
 import com.example.workclass.ui.screens.Interface
 import com.example.workclass.ui.screens.LoginScreen
@@ -219,6 +221,7 @@ fun SetupNavGraph(navController: NavHostController){
         composable("login_screen"){ LoginScreen(navController) }
         composable("accounts_screen"){ AccountsScreen(navController) }
         composable("manage_account_screen"){ ManageAccountScreen(navController) }
+        composable("favorite_accounts_screen"){ FavoriteAccountsScreen(navController) }
     }
 
 }

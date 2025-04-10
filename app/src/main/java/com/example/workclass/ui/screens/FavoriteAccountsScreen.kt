@@ -1,5 +1,6 @@
 package com.example.workclass.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,7 +19,9 @@ import com.example.workclass.data.database.DataBaseProvider
 import com.example.workclass.data.model.AccountEntity
 import com.example.workclass.ui.components.FavoriteAccountCard
 import com.example.workclass.ui.components.TopBarComponent
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @Composable
@@ -45,8 +48,7 @@ fun FavoriteAccountsScreen(navController: NavController){
                 .fillMaxSize(),
             state = listState
         ) {
-            items (accountsdb){
-                accountdb->
+            items (accountsdb){ accountdb->
                 FavoriteAccountCard(
                     accountdb.id ?: 0,
                     accountdb.name ?: "",
@@ -54,10 +56,21 @@ fun FavoriteAccountsScreen(navController: NavController){
                     accountdb.password ?: "",
                     accountdb.description ?: "",
                     accountdb.imageURL?: "",
+                    onDeleteClick = {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            try{
+                                accountDao.delete(accountdb)
+                                accountsdb = withContext(Dispatchers.IO){
+                                    accountDao.getAll()
+                                }
 
+                            }catch (exception: Exception){
+                                Log.d("debug-db", "Error: $exception")
+                            }
+                        }
+                    }
                 )
             }
         }
-      //  FavoriteAccountCard()
     }
 }

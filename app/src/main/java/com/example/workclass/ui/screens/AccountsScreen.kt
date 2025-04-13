@@ -1,6 +1,7 @@
 package com.example.workclass.ui.screens
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -41,6 +42,7 @@ fun AccountsScreen (
 ) {
     var accounts by remember { mutableStateOf<List<AccountModel>>(emptyList()) }
     var showBottomSheet by remember { mutableStateOf(false) }
+    val context = LocalContext.current
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = false
     )
@@ -96,22 +98,36 @@ fun AccountsScreen (
         ) {
             AccountDetailCardComponent(
                 accountDetail?.id ?: 0,
-                accountDetail?.name ?: " ",
-                accountDetail?.username ?: " ",
-                accountDetail?.password ?: " ",
-                accountDetail?.imageURL ?: " ",
-                accountDetail?.description ?: " ",
+                accountDetail?.name ?: "",
+                accountDetail?.username ?: "",
+                accountDetail?.password ?: "",
+                accountDetail?.imageURL ?: "",
+                accountDetail?.description ?: "",
+                navController = navController,
                 onSaveClick = {
-                    CoroutineScope(Dispatchers.IO).launch {
+                    CoroutineScope(Dispatchers.IO).launch { //Para conectarnos con la base de datos interna y realizar operaciones
                         try {
                             accountDetail?.let { accountDao.insert(it.toAccountEntity()) }
-                            Log.d("debug-db", "Account inserted successfully")
-                        } catch (exception: Exception) {
-                            Log.d("debug-db", "ERROR: $exception")
+                            Log.d("debug-db","account inserted successfully")
+                        }catch (exception: Exception){
+                            Log.d("debug-db","Error: $exception")
                         }
                     }
+                },
+                onDeleteClick = { id ->
+                    viewModel.deleteAccount(id) { response ->
+                        if (response != null) {
+                            Log.d("debug-delete", "Account id: $id deleted successfully")
+                            Toast.makeText(context, "Deleted Account", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Log.d("debug-delete", "Failed to delete the account id: $id")
+                            Toast.makeText(context, "Failed to deleted", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
                 }
             )
+
         }
     }
 }

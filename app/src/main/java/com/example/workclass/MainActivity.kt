@@ -44,6 +44,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.workclass.data.database.AppDataBase
 import com.example.workclass.data.database.DataBaseProvider
+import com.example.workclass.data.model.AccountEntity
+import com.example.workclass.data.model.AccountModel
 import com.example.workclass.ui.screens.AccountsScreen
 import com.example.workclass.ui.screens.AndroidComponents
 import com.example.workclass.ui.screens.FavoriteAccountsScreen
@@ -222,6 +224,22 @@ fun SetupNavGraph(navController: NavHostController){
         composable("accounts_screen"){ AccountsScreen(navController) }
         composable("manage_account_screen"){ ManageAccountScreen(navController) }
         composable("favorite_accounts_screen"){ FavoriteAccountsScreen(navController) }
+
+        composable(
+            "manage_account_screen/{id}/{name}/{username}/{password}/{description}"
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments?.getString("id")?.toIntOrNull() ?: 0
+            val name = backStackEntry.arguments?.getString("name") ?: ""
+            val username = backStackEntry.arguments?.getString("username") ?: ""
+            val password = backStackEntry.arguments?.getString("password") ?: ""
+            val description = backStackEntry.arguments?.getString("description") ?: ""
+
+            val prefilledAccount = AccountModel(id, name, username, password, description)
+
+            ManageAccountScreen(navController, prefilledAccount = prefilledAccount)
+        }
+
+
     }
 
 }

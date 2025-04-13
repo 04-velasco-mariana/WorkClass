@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.camera.core)
     implementation(libs.androidx.adaptive.android)
+    implementation(libs.androidx.media3.common.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

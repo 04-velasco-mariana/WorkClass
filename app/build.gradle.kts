@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -54,6 +55,9 @@ dependencies {
     implementation(libs.androidx.navigation.runtime.android)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.camera.core)
+    implementation(libs.androidx.adaptive.android)
+    implementation(libs.androidx.media3.common.ktx)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -61,5 +65,36 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation("androidx.compose.material:material:1.6.0")
+    implementation("androidx.compose.material3:material3:1.2.0")
+    implementation("com.google.accompanist:accompanist-swiperefresh:0.31.1-alpha")
+    //coil AsyncImage
+    //implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation(libs.coil.compose)
+    // retrofit
+   // implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
+    //implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation(libs.retrofit)
+    //implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation(libs.okhttp)
+    //implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+    implementation(libs.kotlinx.serialization.json)
+    //implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation(libs.converter.gson)
+    //
+    //implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation (libs.androidx.lifecycle.runtime.ktx.v262)
+    //
+    val room_version = "2.6.1"
+
+    implementation("androidx.room:room-runtime:$room_version")
+    implementation("androidx.room:room-ktx:$room_version") // opcional pero recomendado
+    ksp("androidx.room:room-compiler:$room_version")
+    //
+    implementation("androidx.compose.material:material-icons-extended")
+
+
+
 
 }

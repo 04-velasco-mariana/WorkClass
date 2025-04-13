@@ -65,22 +65,16 @@ fun MainMenuScreen (navController: NavHostController){
             Text("Button to Andriod Components")
         }
 
-
-
-
-
-
-
-
         Button(
-            onClick = { navController.navigate("interface")}
+            onClick = { navController.navigate("login_screen")}
         ) {
-            Text("Button to Starbucks Interface ")
+            Text("Button to Login Screen ")
         }
-        //
-
-
-
+        Button(
+            onClick = { navController.navigate("accounts_screen")}
+        ) {
+            Text("Button to Accounts Screen ")
+        }
 
     }
 

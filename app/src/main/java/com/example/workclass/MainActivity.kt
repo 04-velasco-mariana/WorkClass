@@ -3,6 +3,7 @@ package com.example.workclass
 
 import android.os.Bundle
 import android.provider.CalendarContract.Colors
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -41,11 +42,19 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.workclass.data.database.AppDataBase
+import com.example.workclass.data.database.DataBaseProvider
+import com.example.workclass.data.model.AccountEntity
+import com.example.workclass.data.model.AccountModel
+import com.example.workclass.ui.screens.AccountsScreen
 import com.example.workclass.ui.screens.AndroidComponents
+import com.example.workclass.ui.screens.FavoriteAccountsScreen
+import com.example.workclass.ui.screens.FavoriteAccountsScreen
 import com.example.workclass.ui.screens.HomeScreen
 import com.example.workclass.ui.screens.Interface
 import com.example.workclass.ui.screens.LoginScreen
 import com.example.workclass.ui.screens.MainMenuScreen
+import com.example.workclass.ui.screens.ManageAccountScreen
 import com.example.workclass.ui.screens.StarbucksInterface
 import com.example.workclass.ui.screens.TestScreen
 import com.example.workclass.ui.theme.WorkClassTheme
@@ -54,9 +63,18 @@ import com.example.workclass.ui.screens.StarbucksInterface
 import java.security.AccessController
 
 class MainActivity : ComponentActivity() {
+    lateinit var database : AppDataBase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // enableEdgeToEdge()
+
+        try{
+            database = DataBaseProvider.getDatabase(this)
+            Log.d("debug-db","Database loaded successfully")
+        }catch (exception:Exception){
+            Log.d("debug-db","ERROR: $exception")
+        }
+
+        enableEdgeToEdge()
         setContent {
 
             WorkClassTheme {
@@ -196,14 +214,32 @@ fun ComposeMultiScreenApp(){
 }
 @Composable
 fun SetupNavGraph(navController: NavHostController){
-    NavHost(navController = navController, startDestination= "main_menu"){
+    NavHost(navController = navController, startDestination= "login_screen"){ //aqui estaba main_menu
         composable("main_menu"){ MainMenuScreen(navController)}
         composable("home_screen"){ HomeScreen(navController)}
         composable("test_screen"){ TestScreen(navController) }
-
         composable("interface"){ StarbucksInterface(navController) }
         composable("android_components"){ AndroidComponents(navController) }
         composable("login_screen"){ LoginScreen(navController) }
+        composable("accounts_screen"){ AccountsScreen(navController) }
+        composable("manage_account_screen"){ ManageAccountScreen(navController) }
+        composable("favorite_accounts_screen"){ FavoriteAccountsScreen(navController) }
+
+        composable(
+            "manage_account_screen/{id}/{name}/{username}/{password}/{description}"
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments?.getString("id")?.toIntOrNull() ?: 0
+            val name = backStackEntry.arguments?.getString("name") ?: ""
+            val username = backStackEntry.arguments?.getString("username") ?: ""
+            val password = backStackEntry.arguments?.getString("password") ?: ""
+            val description = backStackEntry.arguments?.getString("description") ?: ""
+
+            val prefilledAccount = AccountModel(id, name, username, password, description)
+
+            ManageAccountScreen(navController, prefilledAccount = prefilledAccount)
+        }
+
+
     }
 
 }

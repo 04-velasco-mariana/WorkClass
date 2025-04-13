@@ -1,5 +1,8 @@
 package com.example.workclass.ui.screens
 
+import android.content.Context
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,120 +31,150 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.workclass.data.model.UserModel
+import com.example.workclass.data.viewmodel.UserViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+
+
 
 @Composable
-fun LoginScreen (navController: NavController){
-    Column  (
+fun LoginScreen(navController: NavController) {
+    Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(rememberScrollState())
+            .background(MaterialTheme.colorScheme.background),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly
-    ){
-        LoginForm()
+    ) {
+        LoginForm(navController)
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun LoginForm(){
-    //val context = LocalContext.current
+fun LoginForm(
+    navController: NavController,
+    viewModel: UserViewModel = viewModel()
+) {
+    val context = LocalContext.current
+
     Card(
-        colors= CardDefaults.cardColors(
-            contentColor = MaterialTheme.colorScheme.surface
-        ),
-        modifier = Modifier
-            .padding(40.dp, 0.dp)
+        modifier = Modifier.padding(40.dp, 0.dp),
+        colors = CardDefaults.cardColors(
+            contentColor = Color.White,
+            containerColor = MaterialTheme.colorScheme.surface
+        )
+    ) {
+        Column(
+            modifier = Modifier.padding(20.dp)
+        ) {
+            var user by remember { mutableStateOf("") }
+            var password by remember { mutableStateOf("") }
 
-    ){
-       Column(
-           modifier = Modifier
-               .padding(20.dp)
-       ){
-           var user by remember { mutableStateOf("") }
-           var password by remember { mutableStateOf("") }
+            AsyncImage(
+                model = "https://logosmarcas.net/wp-content/uploads/2020/12/GitHub-Simbolo.png",
+                contentDescription = "GitHub Logo",
+                contentScale = ContentScale.Fit
+            )
 
-           AsyncImage( //carga una imagen de una URL sin necesidad de estar en drawable
-               model = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPt4mvHEh4kyEkHx7bRVB1PXGPd_rvGZDmaA&s",//aqui va el logo .jpg o .png,
-           contentDescription = "lOGO DE LEGO",
-               contentScale= ContentScale.Fit
-           )
+            OutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = user,
+                maxLines = 1,
+                onValueChange = { user = it },
+                label = { Text("User") },
+                colors = OutlinedTextFieldDefaults.colors(
+                    unfocusedBorderColor = MaterialTheme.colorScheme.primary,
+                    focusedBorderColor = MaterialTheme.colorScheme.secondary,
+                    unfocusedContainerColor = Color.White,
+                    focusedContainerColor = Color.White,
+                    unfocusedTextColor = Color.Black,
+                    focusedTextColor = Color.Black
+                )
 
-           OutlinedTextField(
-               modifier = Modifier
-                   .fillMaxWidth(),
-               value = user,
-               maxLines = 1,
-               onValueChange = { user = it},
-               label= {Text("User:")},
-               colors= OutlinedTextFieldDefaults.colors(
-                   unfocusedBorderColor = MaterialTheme.colorScheme.primary,
-                   focusedBorderColor = MaterialTheme.colorScheme.secondary,
-                   unfocusedContainerColor = Color.Transparent,
-                   unfocusedTextColor = Color.White,
-                   focusedTextColor = Color.White
-               )
-           )
-           OutlinedTextField(
-               modifier = Modifier
-                   .fillMaxWidth(),
-               value = password,
-               maxLines = 1,
-               onValueChange = { password = it},
-               label= {Text("Password:")},
-               colors= OutlinedTextFieldDefaults.colors(
-                   unfocusedBorderColor = MaterialTheme.colorScheme.primary,
-                   focusedBorderColor = MaterialTheme.colorScheme.secondary,
-                   unfocusedContainerColor = Color.Transparent,
-                   unfocusedTextColor = Color.White,
-                   focusedTextColor = Color.White
-               )
-           )
-           FilledTonalButton(
-               colors= ButtonDefaults.buttonColors(
-                   containerColor = MaterialTheme.colorScheme.primary,
-                   contentColor = MaterialTheme.colorScheme.secondary
-               ),
-               modifier = Modifier
-                   .fillMaxWidth()
-                   .padding(0.dp, 10.dp),
-               shape = CutCornerShape(4.dp),
-               onClick = {/* TryLogin(user,password, context)*/}
-           ) {
-               Text("LOG IN")
+            )
 
-           }
-           OutlinedButton (
-               colors= ButtonDefaults.buttonColors(
-                   containerColor = Color.Transparent,
-                   contentColor = MaterialTheme.colorScheme.primary
-               ),
-               modifier = Modifier
-                   .fillMaxWidth()
-                   .padding(0.dp, 10.dp),
-               shape = CutCornerShape(4.dp),
-               onClick = {}
-           ) {
-               Text("Create Account")
-           }
-       }
+            OutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = password,
+                maxLines = 1,
+                onValueChange = { password = it },
+                label = { Text("Password") },
+                colors = OutlinedTextFieldDefaults.colors(
+                    unfocusedBorderColor = MaterialTheme.colorScheme.primary,
+                    focusedBorderColor = MaterialTheme.colorScheme.secondary,
+                    unfocusedContainerColor = Color.White,
+                    focusedContainerColor = Color.White,
+                    unfocusedTextColor = Color.Black,
+                    focusedTextColor = Color.Black
+                )
 
+            )
+
+            FilledTonalButton(
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp, 10.dp),
+                shape = CutCornerShape(4.dp),
+                onClick = { TryLogin(user, password, context, viewModel, navController) }
+            ) {
+                Text("LOG IN")
+            }
+
+            OutlinedButton(
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Transparent,
+                    contentColor = MaterialTheme.colorScheme.primary
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(0.dp, 10.dp),
+                shape = CutCornerShape(4.dp),
+                onClick = {}
+            ) {
+                Text("CREATE ACCOUNT")
+            }
+        }
     }
 }
 
-/*  fun TryLogin (users: String, password:String, context: Context){
-if (user == "" password == ""){
-Toast.makeTest(
-context,
-"User or Password cannot be empty",
-Toast.LENGTH_SHORT
-).show()
-}
+
+fun TryLogin(
+    user:String,
+    password:String,
+    context: Context,
+    viewModel: UserViewModel,
+    navController: NavController
+){
+    if (user==""||password=="")
+    {
+        Toast.makeText(
+            context,
+            "User or Password cannot be empty",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+    else{
+        val user_model = UserModel(0,"",user,password)
+        viewModel.loginAPI(user_model){jsonResponse ->
+            val loginStatus = jsonResponse?.get("login")?.asString
+            Log.d("debug","LOGIN STATUS:$loginStatus")
+            if (loginStatus=="success")
+                navController.navigate("accounts_screen")
+
+        }
+
+    }
 
 }
-*/
+
+

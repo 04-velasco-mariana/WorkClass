@@ -48,6 +48,7 @@ import com.example.workclass.data.model.AccountEntity
 import com.example.workclass.data.model.AccountModel
 import com.example.workclass.ui.screens.AccountsScreen
 import com.example.workclass.ui.screens.AndroidComponents
+import com.example.workclass.ui.screens.AppScreen
 import com.example.workclass.ui.screens.FavoriteAccountsScreen
 import com.example.workclass.ui.screens.FavoriteAccountsScreen
 import com.example.workclass.ui.screens.HomeScreen
@@ -55,11 +56,10 @@ import com.example.workclass.ui.screens.Interface
 import com.example.workclass.ui.screens.LoginScreen
 import com.example.workclass.ui.screens.MainMenuScreen
 import com.example.workclass.ui.screens.ManageAccountScreen
-import com.example.workclass.ui.screens.StarbucksInterface
 import com.example.workclass.ui.screens.TestScreen
 import com.example.workclass.ui.theme.WorkClassTheme
 import com.example.workclass.ui.screens.StarbucksInterface
-
+import com.example.workclass.ui.theme.WorkClassTheme
 import java.security.AccessController
 
 class MainActivity : ComponentActivity() {
@@ -214,7 +214,7 @@ fun ComposeMultiScreenApp(){
 }
 @Composable
 fun SetupNavGraph(navController: NavHostController){
-    NavHost(navController = navController, startDestination= "login_screen"){ //aqui estaba main_menu
+    NavHost(navController = navController, startDestination= "calendar_screen"){ //aqui estaba main_menu
         composable("main_menu"){ MainMenuScreen(navController)}
         composable("home_screen"){ HomeScreen(navController)}
         composable("test_screen"){ TestScreen(navController) }
@@ -238,6 +238,7 @@ fun SetupNavGraph(navController: NavHostController){
 
             ManageAccountScreen(navController, prefilledAccount = prefilledAccount)
         }
+        composable("calendar_screen"){ AppScreen(navController) }
 
 
     }

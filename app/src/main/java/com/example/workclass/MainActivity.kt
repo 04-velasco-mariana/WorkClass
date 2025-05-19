@@ -4,6 +4,7 @@ package com.example.workclass
 import android.os.Bundle
 import android.provider.CalendarContract.Colors
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -29,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -60,9 +62,14 @@ import com.example.workclass.ui.screens.TestScreen
 import com.example.workclass.ui.theme.WorkClassTheme
 import com.example.workclass.ui.screens.StarbucksInterface
 import com.example.workclass.ui.theme.WorkClassTheme
+import androidx.fragment.app.FragmentActivity
+import com.example.workclass.ui.screens.BiometricScreen
 import java.security.AccessController
+import androidx.navigation.navDeepLink
+import com.example.workclass.ui.screens.Notifications
 
-class MainActivity : ComponentActivity() {
+class MainActivity : FragmentActivity() {
+   // class MainActivity : ComponentActivity() {
     lateinit var database : AppDataBase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -214,7 +221,7 @@ fun ComposeMultiScreenApp(){
 }
 @Composable
 fun SetupNavGraph(navController: NavHostController){
-    NavHost(navController = navController, startDestination= "calendar_screen"){ //aqui estaba main_menu
+    NavHost(navController = navController, startDestination= "main_menu"){ //aqui estaba main_menu
         composable("main_menu"){ MainMenuScreen(navController)}
         composable("home_screen"){ HomeScreen(navController)}
         composable("test_screen"){ TestScreen(navController) }
@@ -239,6 +246,23 @@ fun SetupNavGraph(navController: NavHostController){
             ManageAccountScreen(navController, prefilledAccount = prefilledAccount)
         }
         composable("calendar_screen"){ AppScreen(navController) }
+
+        //Mandar a llamar la pantalla
+        composable("biometric_screen") {
+            val context = LocalContext.current
+            BiometricScreen(navController, onAuthSuccess = {
+                Toast.makeText(context, "¡Autenticación exitosa!", Toast.LENGTH_SHORT).show()
+            })
+        }
+        //composable(
+           // route = "notifications_screen",
+            //deepLinks = listOf(navDeepLink { uriPattern = "app://notificacion"
+           // })
+        //) {
+            //Notifications(navController)
+        //}
+        composable("notifications_screen") { Notifications(navController) }
+
 
 
     }

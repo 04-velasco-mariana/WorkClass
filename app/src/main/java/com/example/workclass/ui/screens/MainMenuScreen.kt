@@ -62,7 +62,7 @@ fun MainMenuScreen (navController: NavHostController){
         Button(
             onClick = { navController.navigate("android_components")}
         ) {
-            Text("Button to Andriod Components")
+            Text("Button to Android Components")
         }
 
         Button(
@@ -74,6 +74,21 @@ fun MainMenuScreen (navController: NavHostController){
             onClick = { navController.navigate("accounts_screen")}
         ) {
             Text("Button to Accounts Screen ")
+        }
+        Button(
+            onClick = { navController.navigate("calendar_screen")}
+        ) {
+            Text("Button to Calendar Screen ")
+        }
+        Button(
+            onClick = { navController.navigate("notifications_screen")}
+        ) {
+            Text("Button to Notifications Screen ")
+        }
+        Button(
+            onClick = { navController.navigate("biometric_screen")}
+        ) {
+            Text("Button to Biometrics Screen ")
         }
 
     }
